@@ -1,3 +1,5 @@
+* {box-sizing: border-box;}
+
 .img-card-fit {
     object-fit: cover;
     width: 100%;
@@ -25,4 +27,30 @@ main {
 
 .offcanvas-top{
     height: fit-content;
+}
+
+h6 {
+    color: white;
+}
+
+p {
+    margin-bottom: 0 !important;
+    color: white;
+}
+
+.checked {
+    color: gold;
+}
+
+.stars {
+    display: flex;
+    justify-content: end !important;
+}
+
+.card:hover {
+    background-color: salmon !important;
+}
+
+.d-none {
+    display: none;
 }
