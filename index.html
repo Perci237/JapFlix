@@ -13,12 +13,25 @@
 
 <body class="bg-dark">
   <main>
+    <div class="offcanvas offcanvas-top" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
+     <div class="offcanvas-header">
+       <h5 class="offcanvas-title" id="titulo">Offcanvas top</h5>
+       
+       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+     </div>
+     <div class="offcanvas-body">
+      <p id="overview" style="color: black;"></p>
+      <div class="text-muted"><hr>
+       <span id="genero"></span>
+      </div>
+    </div>
+</div>
     <div class="text-center container">
       <div class="row py-lg-3">
         <div class="col-lg-6 col-md-8 mx-auto">
           <h1 class="fw-light"><img src="img/japflix.png" alt=""></h1>
           <input type="search" class="form-control" name="buscar" id="inputBuscar" placeholder="Ej.: The Lion King">
-          <button class="btn btn-primary m-2" id="btnBuscar" disabled>Buscar</button>
+          
         </div>
       </div>
     </div>

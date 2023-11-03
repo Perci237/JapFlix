@@ -1,9 +1,13 @@
 const URL = "https://japceibal.github.io/japflix_api/movies-data.json";
 const list = document.getElementById("lista");
 let arrayMovies = {};
-const btn = document.getElementById("btnBuscar");
+
 let HTMLContentToApend = "";
 const buscador = document.getElementById("inputBuscar");
+const TITULO = document.getElementById('titulo');
+const OVERVIEW = document.getElementById('overview');
+const GENERO = document.getElementById('genero');
+
 
 
 async function fetchData(url){
@@ -17,12 +21,17 @@ async function fetchData(url){
 }
 
 
-btn.addEventListener("click", () => {
+document.addEventListener("DOMContentLoaded", () => {
     fetchData(URL)
     .then(data => {
         data.forEach(movie => {
+            let generos = movie.genres
+            let listGeneros = ''
+            generos.forEach(genero => {
+                listGeneros += genero.name+'-'
+            })
             HTMLContentToApend += `
-            <li class="card list-group-item bg-transparent d-none" data-name="${movie.title}" data-description="${movie.tagline}">
+            <li onclick="canva(${movie.id})" id="${movie.id}" class="card list-group-item bg-transparent d-none" data-name="${movie.title}" data-description="${movie.tagline}" data-overview="${movie.overview}" data-genero="${listGeneros}" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
             <div class="row">
                 <div class="col-9">
                     <h6 strong style=""><strong>${movie.title}</strong></h6>
@@ -36,9 +45,20 @@ btn.addEventListener("click", () => {
             `
         });
         list.innerHTML = HTMLContentToApend;
-    }) 
+    })
+
+    
+
+    
 });
 
+function canva(movie){
+    const peli = document.getElementById(movie)
+    console.log("hola")
+    TITULO.textContent = peli.dataset.name;
+    OVERVIEW.textContent = peli.dataset.overview;
+    GENERO.textContent = peli.dataset.genero;
+}
 
 function stars(average) {
     let score = 0;
@@ -57,22 +77,25 @@ function stars(average) {
 }; 
 
 function search (e) {
+    
     if (e.target.matches("#inputBuscar")){
         const movies = document.querySelectorAll("li");
+        
         movies.forEach(movie => {
             if(movie.dataset.name.toLowerCase().includes(e.target.value.toLowerCase()) || movie.dataset.description.toLowerCase().includes(e.target.value.toLowerCase())) {
                 movie.classList.remove("d-none");
-            };
+            } else {
+                movie.classList.add('d-none')
+            }
         })
     }
 }
 
-btn.addEventListener("search", e => {
-    if (buscador.value != "" ) {
-        btn.removeAttribute("disabled");
-        search(e);
-    } else {
-        btn.setAttribute("disabled", "");
-    }
+buscador.addEventListener("keyup", e => {
+    
+    search(e);
+    
 })
+
+
 
