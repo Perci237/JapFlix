@@ -54,3 +54,39 @@ p {
 .d-none {
     display: none;
 }
+ 
+.dropdown-menu {
+    z-index: 1000 !important;
+    width: auto;
+}
+
+.text-muted {
+    padding-top: 0.5em;
+    border-top: solid 0.5px  gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.offcanvas-body {
+    overflow: visible !important;
+    padding-bottom: 5px;
+}
+
+#genero {
+    position: absolute;
+}
+
+#overview {
+    margin-bottom: 0.5em !important;
+}
+
+.dropdown-menu li {
+    display: flex;
+    padding: 0.5em;
+}
+
+.dropdown-menu li p {
+    padding: 0;
+    padding-right: 0.6em;
+}

@@ -7,7 +7,10 @@ const buscador = document.getElementById("inputBuscar");
 const TITULO = document.getElementById('titulo');
 const OVERVIEW = document.getElementById('overview');
 const GENERO = document.getElementById('genero');
-
+const year = document.getElementById("year");
+const runtime = document.getElementById("runtime");
+const budget = document.getElementById("budget");
+const revenue = document.getElementById("revenue");
 
 
 async function fetchData(url){
@@ -27,11 +30,14 @@ document.addEventListener("DOMContentLoaded", () => {
         data.forEach(movie => {
             let generos = movie.genres
             let listGeneros = ''
+            let dateString = movie.release_date
+            let date = new Date(dateString)
+            let year = date.getFullYear()
             generos.forEach(genero => {
                 listGeneros += genero.name+'-'
             })
             HTMLContentToApend += `
-            <li onclick="canva(${movie.id})" id="${movie.id}" class="card list-group-item bg-transparent d-none" data-name="${movie.title}" data-description="${movie.tagline}" data-overview="${movie.overview}" data-genero="${listGeneros}" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
+            <li onclick="canva(${movie.id})" id="${movie.id}" class="card list-group-item bg-transparent d-none pelicula" data-name="${movie.title}" data-description="${movie.tagline}" data-overview="${movie.overview}" data-genero="${listGeneros}" data-year="${year}" data-runtime="${movie.runtime}" data-budget="${movie.budget}" data-revenue="${movie.revenue}" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop">
             <div class="row">
                 <div class="col-9">
                     <h6 strong style=""><strong>${movie.title}</strong></h6>
@@ -45,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `
         });
         list.innerHTML = HTMLContentToApend;
+        
     })
 
     
@@ -54,10 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function canva(movie){
     const peli = document.getElementById(movie)
-    console.log("hola")
     TITULO.textContent = peli.dataset.name;
     OVERVIEW.textContent = peli.dataset.overview;
     GENERO.textContent = peli.dataset.genero;
+    year.textContent =  peli.dataset.year;
+    runtime.textContent = peli.dataset.runtime;
+    budget.textContent =  "$" + peli.dataset.budget;
+    revenue.textContent = "$" + peli.dataset.revenue;
 }
 
 function stars(average) {
@@ -79,7 +89,7 @@ function stars(average) {
 function search (e) {
     
     if (e.target.matches("#inputBuscar")){
-        const movies = document.querySelectorAll("li");
+        const movies = document.querySelectorAll(".pelicula");
         
         movies.forEach(movie => {
             if(movie.dataset.name.toLowerCase().includes(e.target.value.toLowerCase()) || movie.dataset.description.toLowerCase().includes(e.target.value.toLowerCase())) {
